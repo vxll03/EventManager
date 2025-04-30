@@ -1,5 +1,6 @@
 from fastapi import Request
 from fastapi.responses import JSONResponse
+from pydantic import ValidationError
 
 from backend.exceptions.exceptions import (
     BadCredentialsError,
@@ -50,5 +51,18 @@ def register_exceptions_handler(app):
             content={
                 "status": "error",
                 "error": str(exc),
+            },
+        )
+
+    # FIXME 
+    # NOT WORKING
+    @app.exception_handler(ValidationError)
+    async def validation_error_handler(request: Request, exc: ValidationError):
+        return JSONResponse(
+            status_code=422,
+            content={
+                "status": "error",
+                "error": "Validation failed",
+                "details": exc.errors(),
             },
         )

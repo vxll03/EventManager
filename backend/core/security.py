@@ -9,6 +9,7 @@ from fastapi import HTTPException, status
 from backend.core.db import get_db
 from backend.domain.user.user_model import User
 from backend.domain.user.user_schema import TokenData
+from backend.exceptions.exceptions import BadCredentialsError
 
 from .config import settings
 
@@ -134,3 +135,11 @@ async def validate_refresh_token(db: AsyncSession, refresh_token: str):
         return user
     except JWTError:
         raise refresh_token_exception
+
+
+
+# Проверка на роль
+async def get_current_role(user = Depends(get_current_user)):
+    if user.role.value == "ROLE_USER":
+        raise BadCredentialsError("You have no access")
+    return user
