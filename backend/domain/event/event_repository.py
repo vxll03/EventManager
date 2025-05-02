@@ -48,3 +48,6 @@ class EventRepository:
         await self.session.commit()
         await self.session.refresh(db_event)
         return db_event
+
+    async def get_event_by_id(self, event_id: int) -> Event | None:
+        return await self.session.scalar(select(Event).where(Event.id == event_id))
