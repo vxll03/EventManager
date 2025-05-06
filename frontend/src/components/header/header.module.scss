@@ -1,0 +1,129 @@
+@use "../../assets/variables" as *;
+@use "../../assets/mixins" as *;
+
+.header {
+  @include flex(row, space-evenly);
+
+  background-color: $dark;
+  color: $light;
+
+  width: 100%;
+  height: 100px;
+
+  border-radius: 30px;
+
+  @media (max-width: 768px) {
+    height: 80px;
+  }
+}
+
+.logo_container {
+  @include flex();
+
+  width: 20%;
+  height: 100%;
+
+  & img {
+    height: 100%;
+
+    transition: scale 1s;
+    &:hover {
+      scale: 1.1;
+    }
+  }
+
+  @media (max-width: 768px) {
+    & img {
+      height: 100%;
+    }
+  }
+}
+
+.navigation {
+  @include flex(row, space-evenly);
+
+  width: 60%;
+  height: 100%;
+
+  & a {
+    color: inherit;
+    font-weight: 500;
+    font-size: large;
+
+    transition: 0.5s;
+    &:hover {
+      transform: translateY(-2px);
+    }
+    &:active {
+      scale: 0.95;
+    }
+
+    & img {
+      height: 30px;
+      display: none;
+    }
+  }
+
+  @media (max-width: 768px) {
+    width: 50%;
+    & a {
+      & span {
+        display: none;
+      }
+      & img {
+        display: block;
+      }
+    }
+  }
+}
+
+.profile {
+  @include flex;
+
+  width: 20%;
+  height: 100%;
+
+  & a {
+    color: inherit;
+  }
+
+  & .button {
+    @include flex(row, space-evenly);
+
+    width: 65%;
+    height: 5vh;
+
+    min-width: 50px;
+
+    background-color: $dark;
+    color: $light;
+
+    border: 2px solid $light;
+    border-radius: 10px;
+
+    font-weight: 500;
+    font-size: 1.1em;
+
+    transition: all 0.5s;
+    &:hover {
+      background-color: adjust-color($dark, $lightness: 5%);
+      transform: translateY(-2px);
+    }
+    &:active {
+      scale: 0.95;
+      transform: translateY(0);
+    }
+
+    & img {
+      height: 70%;
+    }
+
+    @media (max-width: 1000px) {
+      width: 30%;
+
+      & span {
+        display: none;
+      }
+    }
+  }
+}

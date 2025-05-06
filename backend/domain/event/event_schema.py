@@ -1,37 +1,15 @@
 from datetime import datetime, timezone
-from pydantic import BaseModel, field_validator, model_validator
+from pydantic import BaseModel, Field, field_validator, model_validator
 
 
 class EventCreate(BaseModel):
-    title: str
+    title: str = Field(min_length=5, max_length=100)
     description: str
-    location: str
-    capacity: int
+    location: str = Field(min_length=5, max_length=100)
+    capacity: int = Field(gt=0)
 
     start_time: datetime
     end_time: datetime
-
-    @field_validator("title")
-    def title_validate(cls, value: str) -> str:
-        if len(value) > 100:
-            raise ValueError("Title too long")
-        if len(value) < 5:
-            raise ValueError("Title too short")
-        return value
-
-    @field_validator("location")
-    def location_validate(cls, value: str) -> str:
-        if len(value) > 100:
-            raise ValueError("Title too long")
-        if len(value) < 5:
-            raise ValueError("Title too short")
-        return value
-
-    @field_validator("capacity")
-    def capacity_validator(cls, value: int) -> int:
-        if value <= 0:
-            raise ValueError("Capacity too small")
-        return value
 
     @field_validator("start_time", "end_time")
     def start_end_validator(cls, value: datetime) -> datetime:

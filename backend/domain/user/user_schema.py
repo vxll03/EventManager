@@ -1,4 +1,4 @@
-from pydantic import BaseModel, field_validator, model_validator
+from pydantic import BaseModel, Field, model_validator
 
 from backend.domain.user import Role
 
@@ -17,25 +17,9 @@ class TokenData(BaseModel):
 
 # User
 class UserCreate(BaseModel):
-    username: str
-    password: str
+    username: str = Field(min_length=4, max_length=100)
+    password: str = Field(min_length=8, max_length=100)
     role: Role = Role.USER
-
-    @field_validator("username")
-    def username_validate(cls, value: str) -> str:
-        if len(value) > 100:
-            raise ValueError("Username too long")
-        if len(value) < 4:
-            raise ValueError("Username too short")
-        return value
-
-    @field_validator("password")
-    def pass_validate(cls, value: str) -> str:
-        if len(value) > 100:
-            raise ValueError("Password too long")
-        if len(value) < 8:
-            raise ValueError("Password too short")
-        return value
 
     @model_validator(mode="after")
     def credentials_validate(self) -> "UserCreate":
@@ -51,21 +35,13 @@ class UserLogin(BaseModel):
 
 class UserUpdatePassword(BaseModel):
     old_password: str
-    new_password: str
+    new_password: str = Field(min_length=8, max_length=100)
 
     @model_validator(mode="after")
     def credentials_validate(self) -> "UserUpdatePassword":
         if self.old_password == self.new_password:
             raise ValueError("New password same as old password")
         return self
-
-    @field_validator("new_password")
-    def pass_validate(cls, value: str) -> str:
-        if len(value) > 100:
-            raise ValueError("Password too long")
-        if len(value) < 8:
-            raise ValueError("Password too short")
-        return value
 
 
 class UserActivation(BaseModel):

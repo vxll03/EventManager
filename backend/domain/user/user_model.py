@@ -8,9 +8,9 @@ from backend.core import Base
 
 # Role enumerate
 class Role(PyEnum):
-    USER = "ROLE_USER"
-    ADMIN = "ROLE_ADMIN"
-    ORGANIZER = "ROLE_ORGANIZER"
+    USER = "USER"
+    ADMIN = "ADMIN"
+    ORGANIZER = "ORGANIZER"
 
 
 # User SQLAlchemy table

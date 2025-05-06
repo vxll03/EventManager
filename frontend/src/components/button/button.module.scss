@@ -1,0 +1,22 @@
+@use "../../assets/variables.scss" as *;
+
+.button {
+  width: 9vw;
+  height: 4vh;
+
+  background-color: $dark;
+  color: $light;
+
+  border: 2px solid invert($dark);
+  border-radius: 10px;
+
+  font-weight: 500;
+  font-size: 1.1em;
+
+  transition: all .5s;
+  &:hover {
+    // border-radius: 15px;
+    background-color: color-adjust($dark, $lighten: 5);
+    transform: translateY(-2px);
+  }
+}
