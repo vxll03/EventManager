@@ -1,0 +1,110 @@
+@use "../../assets/variables.scss" as *;
+@use "../../assets/mixins.scss" as *;
+
+.container {
+  @include flex(column, space-around);
+
+  width: 60%;
+  height: 70vh;
+
+  background-color: $dark;
+  color: $light;
+
+  border: 5px solid adjust-color($dark, $lightness: -5%);
+  border-radius: 30px;
+
+  @media (min-width: 1200px) {
+    width: 40%;
+  }
+
+  @media (max-width: 768px) {
+    width: 100%;
+    // height: 98vh;
+  }
+}
+
+.form {
+  @include flex(column, space-evenly);
+
+  height: 60%;
+  width: 100%;
+
+  & label {
+    margin-bottom: -2vh;
+    font-size: 18px;
+  }
+
+  & .input {
+    width: 50%;
+    height: 5vh;
+
+    padding: 0 10px;
+
+    background-color: $dark;
+    color: $light;
+
+    border: 2px solid $light;
+    border-radius: 10px;
+
+    font-size: larger;
+
+    transition: all 0.2s;
+    &:hover {
+      background-color: adjust-color($dark, $lightness: 5%);
+    }
+    &:focus {
+      outline: none;
+      background-color: adjust-color($dark, $lightness: 15%);
+    }
+    
+		&:invalid {
+			border-color: rgb(234, 152, 152);
+		}
+  }
+
+  & .button {
+    width: 40%;
+    height: 6vh;
+
+    margin-top: 8vh;
+
+    background-color: $dark;
+    color: $light;
+
+    border: 2px solid $light;
+    border-radius: 10px;
+
+    font-size: large;
+
+    transition: all 0.5s;
+    &:hover {
+      background-color: adjust-color($dark, $lightness: 15%);
+    }
+  }
+
+  @media (max-width: 1300px) {
+    & .button {
+      width: 45%;
+    }
+  }
+
+  @media (max-width: 768px) {
+    & .input {
+      width: 70%;
+    }
+
+    & .button {
+      width: 60%;
+    }
+  }
+}
+
+p {
+  margin: -5vh 0 0 0;
+
+  font-size: 14px;
+  color: $light;
+  text-decoration: underline $light;
+
+  cursor: pointer;
+}
